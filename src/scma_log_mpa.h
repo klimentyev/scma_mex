@@ -73,15 +73,10 @@ static inline double log_sum_exp(double *x, size_t size)
 {
     double xm = max_element(x, size);
 
+    double sum = 0;
     for(unsigned int i = 0; i < size; i++)
     {
         x[i] -= xm;
-    }
-
-    double sum = 0;
-
-    for(unsigned int i = 0; i < size; i++)
-    {
         sum += exp(x[i]);
     }
 

@@ -145,14 +145,11 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
                     double sum1 = 0;
                     for(unsigned int i = 0; i < M; i++)
                     {
+                        sum0 += exp(Igv[ind_dv[v][0]][v][i]);
                         sum1 += exp(Igv[ind_dv[v][1]][v][i]);
                     }
-                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m]-log(sum1);
 
-                    for(unsigned int i = 0; i < M; i++)
-                    {
-                        sum0 += exp(Igv[ind_dv[v][0]][v][i]);
-                    }
+                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m]-log(sum1);
                     Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m]-log(sum0);
                 }
             }
