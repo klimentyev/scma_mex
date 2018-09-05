@@ -53,12 +53,12 @@ static inline complex_double_t complex_mult(complex_double_t a, complex_double_t
     return c;
 }
 
-static inline double max_element (double *ar, size_t s)
+static inline double max_element (double *ar, size_t size)
 {
 
     double max = ar[0];
 
-    for (unsigned int i = 1; i < s; i++)
+    for (unsigned int i = 1; i < size; i++)
     {
         if ( ar[i] > max )
         {
