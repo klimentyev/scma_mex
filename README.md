@@ -18,7 +18,7 @@ The main features of project:
 
 * `Niter` var in MATLAB should be `int32` type.
 
-* Support GCC, Clang, Intel Compilier. Intel Compilier in 2.75x faster than GCC 7.3.
+* Support GCC, Clang, Intel Compilier. Intel Compilier 2018 in 2.75x faster than GCC 7.3.
 
 * The implementation in 1.5x faster than MATLAB mex code generation.
 
