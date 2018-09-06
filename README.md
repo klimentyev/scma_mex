@@ -16,7 +16,9 @@ The main features of project:
 
 * Input arrays would be a complex (even coefficients for AWGN channel (complex type with zero imaginary part)).
 
-* `Niter` var in MATLAB should be `int32` type
+* `Niter` var in MATLAB should be `int32` type.
+
+* Support GCC, Clang, Intel Compilier. Intel Compilier in 2.75x faster than GCC 7.3.
 
 * The implementation in 1.5x faster than MATLAB mex code generation.
 
