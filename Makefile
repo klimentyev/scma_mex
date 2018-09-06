@@ -1,6 +1,6 @@
 # The Makefile based on project from https://github.com/jtilly/mex and rewritten
 
-MATLAB_DIR = /opt/R2018a
+MATLAB_DIR = /opt/MATLAB2018/R2018a
 
 OBJ_DIR    = obj
 BIN_DIR    = bin
@@ -10,7 +10,7 @@ TARGET      = $(TARGET_NAME).$(EXT)
 
 RM          = rm
 
-# compiles mex files using gcc (clang, icc)
+# compilers: gcc (clang, icc)
 CC = gcc
 LD = gcc
 
