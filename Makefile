@@ -10,22 +10,12 @@ TARGET      = $(TARGET_NAME).$(EXT)
 
 RM          = rm
 
-# compiles mex files using gcc
+# compiles mex files using gcc (clang, icc)
 CC = gcc
 LD = gcc
 
-# compiler flags for gcc
 CFLAGS = -Ofast -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall
-
 CPPFLAGS = -MMD -MP
-
-# to use the intel compiler instead, uncomment CC and CCFLAGS below:
-
-# compiles mex file using the intel compiler
-# CC = icpc
-
-# compiler flags for intel compiler
-# CCFLAGS = -O3 -fPIC -D__amd64
 
 # Figure out which platform we're on
 UNAME = $(shell uname -s)
