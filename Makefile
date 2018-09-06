@@ -15,7 +15,7 @@ CC = gcc
 LD = gcc
 
 # compiler flags for gcc
-CFLAGS = -O3 -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall
+CFLAGS = -Ofast -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall
 
 CPPFLAGS = -MMD -MP
 
