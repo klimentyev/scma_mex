@@ -34,7 +34,7 @@ UNAME = $(shell uname -s)
 ifeq ($(findstring Linux,${UNAME}), Linux)
 	# define which files to be included
 	CINCLUDE = $(MATLAB_DIR)/extern/include
-	LDFLAGS= -pthread -Wl,--no-undefined -Wl,-rpath-link,$(MATLAB_DIR)/bin/glnxa64 -shared -L$(MATLAB_DIR)/bin/glnxa64 -lmx -lmex -lmat -lm
+	LDFLAGS= -pthread -Wl,--no-undefined -Wl,-rpath-link,$(MATLAB_DIR)/bin/glnxa64 -shared -L$(MATLAB_DIR)/bin/glnxa64 -lmx -lmex -lmat -lm -Wl,--version-script,$(MATLAB_DIR)/extern/lib/glnxa64/mexFunction.map
 	# define extension
 	EXT = mexa64
 endif
@@ -43,7 +43,7 @@ endif
 ifeq ($(findstring Darwin,${UNAME}), Darwin)
 	# define which files to be included
 	CINCLUDE = -L$(MATLAB_DIR)/bin/maci64
-	LDFLAGS= -pthread -Wl,--no-undefined -Wl,-rpath-link,$(MATLAB_DIR)/bin/maci64 -shared -L$(MATLAB_DIR)/bin/maci64 -lmx -lmex -lmat -lm
+	LDFLAGS= -pthread -Wl,--no-undefined -Wl,-rpath-link,$(MATLAB_DIR)/bin/maci64 -shared -L$(MATLAB_DIR)/bin/maci64 -lmx -lmex -lmat -lm -Wl,--version-script,$(MATLAB_DIR)/extern/lib/glnxa64/mexFunction.map
 	# define extension
 	EXT = mexmaci64
 endif
