@@ -11,8 +11,8 @@ TARGET      = $(TARGET_NAME).$(EXT)
 RM          = rm
 
 # compilers: gcc (clang, icc)
-CC = gcc
-LD = gcc
+CC = icc
+LD = icc
 
 CFLAGS = -Ofast -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall
 CPPFLAGS = -MMD -MP
