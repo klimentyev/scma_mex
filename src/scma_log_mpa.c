@@ -6,6 +6,7 @@
  */
 
 #include "scma_log_mpa.h"
+#include <omp.h>
 
 void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_double_t h[K][V][N], double N0, int Niter, double LLR[B][N])
 {
@@ -48,7 +49,7 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
         }
     }
 
-
+    #pragma omp parallel for
     for(int n = 0; n < N; n++)
     {
         // Step 1: Initial calculations
