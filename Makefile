@@ -14,7 +14,7 @@ RM          = rm
 CC = icc
 LD = icc
 
-CFLAGS = -Ofast -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall -qopenmp
+CFLAGS = -fast -std=c99 -fpic -fno-omit-frame-pointer -pthread -Wall -qopenmp
 CPPFLAGS = -MMD -MP
 
 # Figure out which platform we're on
