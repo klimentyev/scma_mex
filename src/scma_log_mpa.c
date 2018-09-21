@@ -19,7 +19,14 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
     {
         for (int v = 0; v < V; v++)
         {
-            F[k][v] = ((cb[k][0][v].real != 0.0) || (cb[k][0][v].imag != 0.0));
+            for (int m = 0; m < M; m++)
+            {
+                if ((cb[k][m][v].real != 0.0) || (cb[k][m][v].imag != 0.0))
+                {
+                    F[k][v] = 1;
+                    break;
+                }
+            }
         }
     }
 
