@@ -79,7 +79,7 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
             }
         }
 
-        double Ap = 1./M;
+        double Ap           = log(1.0/M);
         double Igv[K][V][M] = {0};
         double Ivg[K][V][M] = {0};
 
@@ -89,7 +89,7 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
             {
                 for(int m = 0; m < M; m++)
                 {
-                    Ivg[k][v][m] = log(Ap);
+                    Ivg[k][v][m] = Ap;
                 }
             }
         }
@@ -171,7 +171,7 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
         {
             for(int m = 0; m < M; m++)
             {
-                Q[m][v] = log(Ap) + Igv[ind_dv[v][0]][v][m] + Igv[ind_dv[v][1]][v][m];
+                Q[m][v] = Ap + Igv[ind_dv[v][0]][v][m] + Igv[ind_dv[v][1]][v][m];
             }
         }
 
