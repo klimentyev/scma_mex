@@ -57,9 +57,9 @@ static inline double max_element (double *ar, size_t size)
 {
     double max = ar[0];
 
-    for (unsigned int i = 1; i < size; i++)
+    for (int i = 1; i < size; i++)
     {
-        if ( ar[i] > max )
+        if (ar[i] > max)
         {
             max = ar[i];
         }
@@ -73,7 +73,7 @@ static inline double log_sum_exp(double *x, size_t size)
     double xm = max_element(x, size);
 
     double sum = 0;
-    for(unsigned int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         x[i] -= xm;
         sum += exp(x[i]);

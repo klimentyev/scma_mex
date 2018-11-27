@@ -41,35 +41,35 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     double LLR[B][N] = {0};
 
-    for(int n = 0; n < N; n++)
+    for (int n = 0; n < N; n++)
     {
-        for(int k = 0; k < K; k++)
+        for (int k = 0; k < K; k++)
         {
-            y[k][n].real = y_in[n*K+k].real;
-            y[k][n].imag = y_in[n*K+k].imag;
+            y[k][n].real = y_in[n*K + k].real;
+            y[k][n].imag = y_in[n*K + k].imag;
         }
     }
 
-    for(int v = 0; v < V; v++)
+    for (int v = 0; v < V; v++)
     {
-        for(int m = 0; m < M; m++)
+        for (int m = 0; m < M; m++)
         {
-            for(int k = 0; k < K; k++)
+            for (int k = 0; k < K; k++)
             {
-                cb[k][m][v].real = cb_in[v*M*K+m*K+k].real;
-                cb[k][m][v].imag = cb_in[v*M*K+m*K+k].imag;
+                cb[k][m][v].real = cb_in[(v*M + m)*K + k].real;
+                cb[k][m][v].imag = cb_in[(v*M + m)*K + k].imag;
             }
         }
     }
 
-    for(int n = 0; n < N; n++)
+    for (int n = 0; n < N; n++)
     {
-        for(int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++)
         {
-            for(int k = 0; k < K; k++)
+            for (int k = 0; k < K; k++)
             {
-                h[k][v][n].real = h_in[n*V*K+v*K+k].real;
-                h[k][v][n].imag = h_in[n*V*K+v*K+k].imag;
+                h[k][v][n].real = h_in[(n*V + v)*K + k].real;
+                h[k][v][n].imag = h_in[(n*V + v)*K + k].imag;
             }
         }
     }
