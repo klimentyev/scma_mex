@@ -73,8 +73,8 @@ void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_dou
                     {
                         complex_double_t sum;
                         sum = complex_add(complex_add(complex_mult(cb[k][m1][ind_df[k][0]], h[k][ind_df[k][0]][n]),
-                                                      complex_mult(cb[k][m2][ind_df[k][1]],h[k][ind_df[k][1]][n])),
-                                                      complex_mult(cb[k][m3][ind_df[k][2]],h[k][ind_df[k][2]][n]));
+                                                      complex_mult(cb[k][m2][ind_df[k][1]], h[k][ind_df[k][1]][n])),
+                                                      complex_mult(cb[k][m3][ind_df[k][2]], h[k][ind_df[k][2]][n]));
                         complex_double_t d = complex_subst(y[k][n], sum);
                         f[m1][m2][m3][k] = -(1/N0)*(d.real*d.real + d.imag*d.imag);
                     }
