@@ -21,7 +21,7 @@ struct complex_double
 
 typedef struct complex_double complex_double_t;
 
-void scmadec(complex_double_t y[K][N], complex_double_t cb[K][M][V], complex_double_t h[K][V][N], double N0, int Niter, double LLR[B][N]);
+void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V], complex_double_t const h[K][V][N], double N0, int Niter, double LLR[B][N]);
 
 static inline complex_double_t complex_add(complex_double_t a, complex_double_t b)
 {
@@ -53,7 +53,7 @@ static inline complex_double_t complex_mult(complex_double_t a, complex_double_t
     return c;
 }
 
-static inline double max_element (double *ar, size_t size)
+static inline double max_element(double const *ar, size_t size)
 {
     double max = ar[0];
 
@@ -68,17 +68,18 @@ static inline double max_element (double *ar, size_t size)
     return max;
 }
 
-static inline double log_sum_exp(double *x, size_t size)
+static inline double log_sum_exp(double const *x, size_t size)
 {
     double xm = max_element(x, size);
 
     double sum = 0;
+    double x_arg = 0;
 
     #pragma omp simd
     for (int i = 0; i < size; i++)
     {
-        x[i] -= xm;
-        sum += exp(x[i]);
+        x_arg = x[i] - xm;
+        sum += exp(x_arg);
     }
 
     double log_sum = xm + log(sum);
