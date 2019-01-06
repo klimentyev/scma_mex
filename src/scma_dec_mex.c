@@ -33,13 +33,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     // Conversion of input args
 
-    complex_double_t y[K][N]     __attribute__((aligned(64))) = {0};
-    complex_double_t cb[K][M][V] __attribute__((aligned(64))) = {0};
-    complex_double_t h[K][V][N]  __attribute__((aligned(64))) = {0};
+    complex_double_t y[K][N]      = {0};
+    complex_double_t cb[K][M][V]  = {0};
+    complex_double_t h[K][V][N]   = {0};
     double           N0;
     int              Niter;
 
-    double LLR_out[B][N] __attribute__((aligned(64))) = {0};
+    double LLR_out[B][N] = {0};
 
     for (int n = 0; n < N; n++)
     {

@@ -61,7 +61,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
     {
         // Step 1: Initial calculations
 
-        double f[K][M][M][M] __attribute__((aligned(64))) = {0};
+        double f[K][M][M][M] = {0};
 
         for (int k = 0; k < K; k++)
         {
@@ -83,8 +83,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
         }
 
         double Ap           = log(1.0/M);
-        double Igv[K][V][M] __attribute__((aligned(64))) = {0};
-        double Ivg[K][V][M] __attribute__((aligned(64))) = {0};
+        double Igv[K][V][M] = {0};
+        double Ivg[K][V][M] = {0};
 
         for (int k = 0; k < K; k++)
         {
@@ -168,7 +168,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
         // Step 3: LLR calculation
 
-        double Q[M][V] __attribute__((aligned(64))) = {0};
+        double Q[M][V] = {0};
 
         for (int v = 0; v < V; v++)
         {
