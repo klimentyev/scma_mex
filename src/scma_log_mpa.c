@@ -61,7 +61,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
     {
         // Step 1: Initial calculations
 
-        double f[M][M][M][K] = {0};
+        double f[K][M][M][M] __attribute__((aligned(64))) = {0};
 
         for (int k = 0; k < K; k++)
         {
@@ -76,15 +76,15 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                                                       complex_mult(cb[k][m2][ind_df[k][1]], h[k][ind_df[k][1]][n])),
                                                       complex_mult(cb[k][m3][ind_df[k][2]], h[k][ind_df[k][2]][n]));
                         complex_double_t d = complex_subst(y[k][n], sum);
-                        f[m1][m2][m3][k] = -(1/N0)*(d.real*d.real + d.imag*d.imag);
+                        f[k][m1][m2][m3] = -(1/N0)*(d.real*d.real + d.imag*d.imag);
                     }
                 }
             }
         }
 
         double Ap           = log(1.0/M);
-        double Igv[K][V][M] = {0};
-        double Ivg[K][V][M] = {0};
+        double Igv[K][V][M] __attribute__((aligned(64))) = {0};
+        double Ivg[K][V][M] __attribute__((aligned(64))) = {0};
 
         for (int k = 0; k < K; k++)
         {
@@ -108,12 +108,12 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
                 for (int m1 = 0; m1 < M; m1++)
                 {
-                    double sIgv[M*M] = {0};
+                    double sIgv[M*M] __attribute__((aligned(64))) = {0};
                     for (int m2 = 0; m2 < M; m2++)
                     {
                         for (int m3 = 0; m3 < M; m3++)
                         {
-                            sIgv[m2*M+m3] = f[m1][m2][m3][k] + Ivg[k][ind_df[k][1]][m2] + Ivg[k][ind_df[k][2]][m3];
+                            sIgv[m2*M+m3] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][1]][m2] + Ivg[k][ind_df[k][2]][m3];
                         }
                     }
                     Igv[k][ind_df[k][0]][m1] = log_sum_exp(sIgv, M*M);
@@ -121,12 +121,12 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
                 for (int m2 = 0; m2 < M; m2++)
                 {
-                    double sIgv[M*M] = {0};
+                    double sIgv[M*M] __attribute__((aligned(64))) = {0};
                     for (int m1 = 0; m1 < M; m1++)
                     {
                         for(int m3 = 0; m3 < M; m3++)
                         {
-                            sIgv[m1*M+m3] = f[m1][m2][m3][k] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][2]][m3];
+                            sIgv[m1*M+m3] = f[k][m1][m2][m3]+ Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][2]][m3];
                         }
                     }
                     Igv[k][ind_df[k][1]][m2] = log_sum_exp(sIgv, M*M);
@@ -134,12 +134,12 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
                 for (int m3 = 0; m3 < M; m3++)
                 {
-                    double sIgv[M*M] = {0};
+                    double sIgv[M*M] __attribute__((aligned(64))) = {0};
                     for (int m1 = 0; m1 < M; m1++)
                     {
                         for (int m2 = 0; m2 < M; m2++)
                         {
-                            sIgv[m1*M+m2] = f[m1][m2][m3][k] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][1]][m2];
+                            sIgv[m1*M+m2] = f[k][m1][m2][m3]+ Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][1]][m2];
                         }
                     }
                     Igv[k][ind_df[k][2]][m3] = log_sum_exp(sIgv, M*M);
@@ -168,7 +168,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
         // Step 3: LLR calculation
 
-        double Q[M][V] = {0};
+        double Q[M][V] __attribute__((aligned(64))) = {0};
 
         for (int v = 0; v < V; v++)
         {
