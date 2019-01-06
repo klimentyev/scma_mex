@@ -19,7 +19,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxDouble        *N0_in;
     mxInt32         *Niter_in;
 
-    mxDouble        *LLR_out;
+    mxDouble        *LLR_out_mex;
 
     y_in       = mxGetComplexDoubles(prhs[0]);
     cb_in      = mxGetComplexDoubles(prhs[1]);
@@ -28,7 +28,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     Niter_in   = mxGetInt32s(prhs[4]);
 
     plhs[0] = mxCreateDoubleMatrix(B, N, mxREAL);
-    LLR_out = (mxDouble *)mxGetPr(plhs[0]);
+    LLR_out_mex = (mxDouble *)mxGetPr(plhs[0]);
 
 
     // Conversion of input args
@@ -39,7 +39,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     double           N0;
     int              Niter;
 
-    double LLR[B][N] = {0};
+    double LLR_out[B][N] = {0};
 
     for (int n = 0; n < N; n++)
     {
@@ -78,7 +78,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     N0    = (double)(*N0_in);
     Niter = (int)(*Niter_in);
 
-    scmadec(y, cb, h, N0, Niter, LLR);
+    scmadec(y, cb, h, N0, Niter, LLR_out);
 
     //  Conversion of output arg
 
@@ -86,7 +86,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     {
         for (int row = 0; row < B; row++)
         {
-            LLR_out[row + col*B] = LLR[row][col];
+            LLR_out_mex[row + col*B] = LLR_out[row][col];
         }
     }
 }
