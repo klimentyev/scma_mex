@@ -75,7 +75,7 @@ static inline double log_sum_exp(double const *x, size_t size)
     double sum = 0;
     double x_arg = 0;
 
-    #pragma omp simd
+    #pragma omp simd reduction(+:sum)
     for (int i = 0; i < size; i++)
     {
         x_arg = x[i] - xm;
