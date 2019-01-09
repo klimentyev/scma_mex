@@ -56,6 +56,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
         }
     }
 
+    double Noise = 1/N0;
+
     #pragma omp parallel for
     for (int n = 0; n < N; n++)
     {
@@ -76,7 +78,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                                                       complex_mult(cb[k][m2][ind_df[k][1]], h[k][ind_df[k][1]][n])),
                                                       complex_mult(cb[k][m3][ind_df[k][2]], h[k][ind_df[k][2]][n]));
                         complex_double_t d = complex_subst(y[k][n], sum);
-                        f[k][m1][m2][m3] = -(1/N0)*(d.real*d.real + d.imag*d.imag);
+                        f[k][m1][m2][m3] = -Noise*(d.real*d.real + d.imag*d.imag);
                     }
                 }
             }
