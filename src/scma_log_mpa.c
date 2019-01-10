@@ -74,11 +74,14 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                     for (int m3 = 0; m3 < M; m3++)
                     {
                         complex_double_t sum;
+                        complex_double_t d;
+
                         sum = complex_add(complex_add(complex_mult(cb[k][m1][ind_df[k][0]], h[k][ind_df[k][0]][n]),
                                                       complex_mult(cb[k][m2][ind_df[k][1]], h[k][ind_df[k][1]][n])),
                                                       complex_mult(cb[k][m3][ind_df[k][2]], h[k][ind_df[k][2]][n]));
-                        complex_double_t d = complex_subst(y[k][n], sum);
-                        f[k][m1][m2][m3] = -Noise*(d.real*d.real + d.imag*d.imag);
+                        d = complex_subst(y[k][n], sum);
+
+                        f[k][m1][m2][m3]   = -Noise*(d.real*d.real + d.imag*d.imag);
                     }
                 }
             }
@@ -162,8 +165,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                         sum1 += exp(Igv[ind_dv[v][1]][v][i]);
                     }
 
-                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m]-log(sum1);
-                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m]-log(sum0);
+                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m] - log(sum1);
+                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m] - log(sum0);
                 }
             }
         }
@@ -182,8 +185,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
         for (int v = 0; v < V; v++)
         {
-            LLR[2*v][n]   = log((exp(Q[0][v])+exp(Q[1][v]))/((exp(Q[2][v])+exp(Q[3][v]))));
-            LLR[2*v+1][n] = log((exp(Q[0][v])+exp(Q[2][v]))/((exp(Q[1][v])+exp(Q[3][v]))));
+            LLR[2*v][n]     = log((exp(Q[0][v]) + exp(Q[1][v]))/((exp(Q[2][v]) + exp(Q[3][v]))));
+            LLR[2*v + 1][n] = log((exp(Q[0][v]) + exp(Q[2][v]))/((exp(Q[1][v]) + exp(Q[3][v]))));
         }
     }
 }
