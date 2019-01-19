@@ -131,7 +131,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                     {
                         for(int m3 = 0; m3 < M; m3++)
                         {
-                            sIgv[m1*M+m3] = f[k][m1][m2][m3]+ Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][2]][m3];
+                            sIgv[m1*M+m3] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][2]][m3];
                         }
                     }
                     Igv[k][ind_df[k][1]][m2] = log_sum_exp(sIgv, M*M);
@@ -144,7 +144,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                     {
                         for (int m2 = 0; m2 < M; m2++)
                         {
-                            sIgv[m1*M+m2] = f[k][m1][m2][m3]+ Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][1]][m2];
+                            sIgv[m1*M+m2] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][1]][m2];
                         }
                     }
                     Igv[k][ind_df[k][2]][m3] = log_sum_exp(sIgv, M*M);
