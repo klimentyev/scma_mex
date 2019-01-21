@@ -155,18 +155,22 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
             for (int v = 0; v < V; v++)
             {
+                double sum0 = 0;
+                double sum1 = 0;
+
+                for (int i = 0; i < M; i++)
+                {
+                    sum0 += exp(Igv[ind_dv[v][0]][v][i]);
+                    sum1 += exp(Igv[ind_dv[v][1]][v][i]);
+                }
+
+                sum0 = log(sum0);
+                sum1 = log(sum1);
+
                 for (int m = 0; m < M; m++)
                 {
-                    double sum0 = 0;
-                    double sum1 = 0;
-                    for (int i = 0; i < M; i++)
-                    {
-                        sum0 += exp(Igv[ind_dv[v][0]][v][i]);
-                        sum1 += exp(Igv[ind_dv[v][1]][v][i]);
-                    }
-
-                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m] - log(sum1);
-                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m] - log(sum0);
+                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m] - sum1;
+                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m] - sum0;
                 }
             }
         }
