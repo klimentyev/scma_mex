@@ -56,6 +56,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
         }
     }
 
+    double Noise = 1/N0;
+
     #pragma omp parallel for
     for (int n = 0; n < N; n++)
     {
@@ -163,8 +165,8 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
         for (int v = 0; v < V; v++)
         {
-            LLR[2*v][n]     = (1/N0)*(max(Q[0][v], Q[1][v]) - max(Q[2][v], Q[3][v]));
-            LLR[2*v + 1][n] = (1/N0)*(max(Q[0][v], Q[2][v]) - max(Q[1][v], Q[3][v]));
+            LLR[2*v][n]     = Noise*(max(Q[0][v], Q[1][v]) - max(Q[2][v], Q[3][v]));
+            LLR[2*v + 1][n] = Noise*(max(Q[0][v], Q[2][v]) - max(Q[1][v], Q[3][v]));
         }
     }
 }
