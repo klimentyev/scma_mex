@@ -6,7 +6,7 @@
  */
 
 #include "mex.h"
-#include "scma_log_mpa.h"
+#include "scma_max_log_mpa.h"
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {

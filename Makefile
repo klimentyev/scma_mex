@@ -5,7 +5,7 @@ MATLAB_DIR = /opt/MATLAB2018/R2018a
 OBJ_DIR    = obj
 BIN_DIR    = bin
 
-TARGET_NAME = scma_log_mpa_mex
+TARGET_NAME = scma_max_log_mpa_mex
 TARGET      = $(TARGET_NAME).$(EXT)
 
 RM          = rm
@@ -38,7 +38,7 @@ ifeq ($(findstring Darwin,${UNAME}), Darwin)
 	EXT = mexmaci64
 endif
 
-MEX_SRC += src/scma_log_mpa.c
+MEX_SRC += src/scma_max_log_mpa.c
 MEX_SRC += src/scma_dec_mex.c
 
 CINCLUDE += src

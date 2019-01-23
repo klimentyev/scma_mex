@@ -5,7 +5,7 @@
  * Vyacheslav P. Klimentyev, 2018
  */
 
-#include "scma_log_mpa.h"
+#include "scma_max_log_mpa.h"
 #include <omp.h>
 
 void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V], complex_double_t const h[K][V][N], double N0, int Niter, double LLR[B][N])

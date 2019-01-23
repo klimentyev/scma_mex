@@ -5,8 +5,8 @@
  * Vyacheslav P. Klimentyev, 2018
  */
 
-#ifndef _SCMA_LOG_MPA_H_
-#define _SCMA_LOG_MPA_H_
+#ifndef _SCMA_MAX_LOG_MPA_H_
+#define _SCMA_MAX_LOG_MPA_H_
 
 #include <math.h>
 #include <stddef.h>
@@ -87,4 +87,4 @@ static inline double log_sum_exp(double const *x, size_t size)
     return log_sum;
 }
 
-#endif // _SCMA_LOG_MPA_H_
+#endif // _SCMA_MAX_LOG_MPA_H_
