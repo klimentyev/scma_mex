@@ -53,6 +53,11 @@ static inline complex_double_t complex_mult(complex_double_t a, complex_double_t
     return c;
 }
 
+static inline double max(double a, double b)
+{
+    return a > b ? a : b;
+}
+
 static inline double max_element(double const *ar, size_t size)
 {
     double max = ar[0];
@@ -66,25 +71,6 @@ static inline double max_element(double const *ar, size_t size)
     }
 
     return max;
-}
-
-static inline double log_sum_exp(double const *x, size_t size)
-{
-    double xm = max_element(x, size);
-
-    double sum = 0;
-    double x_arg = 0;
-
-    #pragma omp simd reduction(+:sum) private(x_arg)
-    for (int i = 0; i < size; i++)
-    {
-        x_arg = x[i] - xm;
-        sum += exp(x_arg);
-    }
-
-    double log_sum = xm + log(sum);
-
-    return log_sum;
 }
 
 #endif // _SCMA_MAX_LOG_MPA_H_

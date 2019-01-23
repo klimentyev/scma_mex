@@ -56,8 +56,6 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
         }
     }
 
-    double Noise = 1/N0;
-
     #pragma omp parallel for
     for (int n = 0; n < N; n++)
     {
@@ -81,26 +79,14 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                                                       complex_mult(cb[k][m3][ind_df[k][2]], h[k][ind_df[k][2]][n]));
                         d = complex_subst(y[k][n], sum);
 
-                        f[k][m1][m2][m3]   = -Noise*(d.real*d.real + d.imag*d.imag);
+                        f[k][m1][m2][m3]   = -(d.real*d.real + d.imag*d.imag);
                     }
                 }
             }
         }
 
-        double Ap           = log(1.0/M);
         double Igv[K][V][M] = {0};
         double Ivg[K][V][M] = {0};
-
-        for (int k = 0; k < K; k++)
-        {
-            for (int v = 0; v < V; v++)
-            {
-                for (int m = 0; m < M; m++)
-                {
-                    Ivg[k][v][m] = Ap;
-                }
-            }
-        }
 
         // Step 2: Iterative procedure
 
@@ -121,7 +107,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                             sIgv[m2*M+m3] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][1]][m2] + Ivg[k][ind_df[k][2]][m3];
                         }
                     }
-                    Igv[k][ind_df[k][0]][m1] = log_sum_exp(sIgv, M*M);
+                    Igv[k][ind_df[k][0]][m1] = max_element(sIgv, M*M);
                 }
 
                 for (int m2 = 0; m2 < M; m2++)
@@ -134,7 +120,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                             sIgv[m1*M+m3] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][2]][m3];
                         }
                     }
-                    Igv[k][ind_df[k][1]][m2] = log_sum_exp(sIgv, M*M);
+                    Igv[k][ind_df[k][1]][m2] = max_element(sIgv, M*M);
                 }
 
                 for (int m3 = 0; m3 < M; m3++)
@@ -147,7 +133,7 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
                             sIgv[m1*M+m2] = f[k][m1][m2][m3] + Ivg[k][ind_df[k][0]][m1] + Ivg[k][ind_df[k][1]][m2];
                         }
                     }
-                    Igv[k][ind_df[k][2]][m3] = log_sum_exp(sIgv, M*M);
+                    Igv[k][ind_df[k][2]][m3] = max_element(sIgv, M*M);
                 }
             }
 
@@ -155,22 +141,10 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
 
             for (int v = 0; v < V; v++)
             {
-                double sum0 = 0;
-                double sum1 = 0;
-
-                for (int i = 0; i < M; i++)
-                {
-                    sum0 += exp(Igv[ind_dv[v][0]][v][i]);
-                    sum1 += exp(Igv[ind_dv[v][1]][v][i]);
-                }
-
-                sum0 = log(sum0);
-                sum1 = log(sum1);
-
                 for (int m = 0; m < M; m++)
                 {
-                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m] - sum1;
-                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m] - sum0;
+                    Ivg[ind_dv[v][0]][v][m] = Igv[ind_dv[v][1]][v][m];
+                    Ivg[ind_dv[v][1]][v][m] = Igv[ind_dv[v][0]][v][m];
                 }
             }
         }
@@ -183,14 +157,14 @@ void scmadec(complex_double_t const y[K][N], complex_double_t const cb[K][M][V],
         {
             for (int m = 0; m < M; m++)
             {
-                Q[m][v] = Ap + Igv[ind_dv[v][0]][v][m] + Igv[ind_dv[v][1]][v][m];
+                Q[m][v] = Igv[ind_dv[v][0]][v][m] + Igv[ind_dv[v][1]][v][m];
             }
         }
 
         for (int v = 0; v < V; v++)
         {
-            LLR[2*v][n]     = log((exp(Q[0][v]) + exp(Q[1][v]))/((exp(Q[2][v]) + exp(Q[3][v]))));
-            LLR[2*v + 1][n] = log((exp(Q[0][v]) + exp(Q[2][v]))/((exp(Q[1][v]) + exp(Q[3][v]))));
+            LLR[2*v][n]     = (1/N0)*(max(Q[0][v], Q[1][v]) - max(Q[2][v], Q[3][v]));
+            LLR[2*v + 1][n] = (1/N0)*(max(Q[0][v], Q[2][v]) - max(Q[1][v], Q[3][v]));
         }
     }
 }
