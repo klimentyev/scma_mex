@@ -4,7 +4,7 @@ The mex realization of Log-MPA decoder for [Sparse Code Multiple Access (SCMA) s
 
 ## Objectives
 
-To provide **C** implementation of **Log-MPA** decoder.
+To provide **C** implementation of **Log-MPA** and **Max-Log-MPA** (branch `max_log_mpa`, 6x times faster, but needs additional testing) decoders.
 
 ## Description
 
